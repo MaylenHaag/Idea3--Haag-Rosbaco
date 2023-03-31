@@ -7,18 +7,18 @@ let sexo;
 let kilometros;
 let categoria;
 
-let sexoconf1 = false;
-let km = 0;
-let verificacion1;
-let verif1 = 0;
-let anadirpersona;
-const arrayParticipantes = [];
+let sexoValidoParticipante1 = false;
+let kilometrajeParticipante1 = 0;
+let confirmacionDatosParticipante1;
+let confirmacionAgregarParticipante1 = 0;
+let confirmacionAgregarOtroParticipante;
+const participantesRegistrados = [];
 let sexos;
 
 // participante 2
-let sexoconf2 = false;
-let verificacion2;
-let verif2 = 0;
+let sexoValidoParticipante2 = false;
+let confirmacionDatosParticipante2;
+let vericonfirmacionAgregarParticipante2 = 0;
 
 
 // Clase para crear los participantes
@@ -46,7 +46,7 @@ function mostrarInformacionParticipante(Participante) {
         DNI: ${Participante.dni}
         Edad: ${Participante.edad}
         Sexo: ${Participante.sexo}
-        Kilometraje: ${km}km`
+        Kilometraje: ${kilometrajeParticipante1}km`
   );
 
 }
@@ -63,48 +63,48 @@ const participante1 = new Participante(
     "Ingrese el kilometraje que va a hacer: 43km, 65km o 95km"
   )
 )
-arrayParticipantes.push(participante1);
+participantesRegistrados.push(participante1);
 
 // Corroboramos que toda la informacion este bien
-while (sexoconf1 === false) {
+while (sexoValidoParticipante1 === false) {
   if (participante1.sexo.toLowerCase() === "femenino") {
-    sexoconf1 = 1;
+    sexoValidoParticipante1 = 1;
   } else if (participante1.sexo.toLowerCase() === "masculino") {
-    sexoconf1 = 2;
+    sexoValidoParticipante1 = 2;
   } else {
     participante1.sexo = prompt("Ingrese el sexo nuevamente");
-    sexoconf1 = false;
+    sexoValidoParticipante1 = false;
   }
 }
 
-while (km === 0) {
+while (kilometrajeParticipante1 === 0) {
   if (
     participante1.kilometros === "43km" ||
     participante1.kilometros === 43 ||
     participante1.kilometros === "43"
   ) {
-    km = 43;
+    kilometrajeParticipante1 = 43;
   } else if (
     participante1.kilometros === "65km" ||
     participante1.kilometros === 65 ||
     participante1.kilometros === "65"
   ) {
-    km = 65;
+    kilometrajeParticipante1 = 65;
   } else if (
     participante1.kilometros === "95km" ||
     participante1.kilometros === 95 ||
     participante1.kilometros === "95"
   ) {
-    km = 95;
+    kilometrajeParticipante1 = 95;
   } else {
-    km = 0;
+    kilometrajeParticipante1 = 0;
 
     participante1.kilometros = prompt(
       "Ingrese el kilimetraje que va a hacer: 43km, 65km o 95km"
     );
   }
 
-  console.log(km);
+  console.log(kilometrajeParticipante1);
 }
 
 if (participante1.edad < 10 || participante1.edad > 85) {
@@ -112,18 +112,18 @@ if (participante1.edad < 10 || participante1.edad > 85) {
 } else {
   mostrarInformacionParticipante(participante1);
 
-  verificacion1 = prompt("Ingrese SI o NO:");
+  confirmacionDatosParticipante1 = prompt("Ingrese SI o NO:");
 }
 
 do {
-  if (verificacion1.toLowerCase() === "si") {
-    verif1 = 1;
+  if (confirmacionDatosParticipante1.toLowerCase() === "si") {
+    confirmacionAgregarParticipante1 = 1;
 
-    if (km === 95) {
+    if (kilometrajeParticipante1 === 95) {
       // Añadimos otro participante en caso de que así lo desee el usuario
-      anadirpersona = prompt("¿Desea correr en dupla? Escriba SI o NO");
+      confirmacionAgregarOtroParticipante = prompt("¿Desea correr en dupla? Escriba SI o NO");
 
-      switch (anadirpersona.toLowerCase()) {
+      switch (confirmacionAgregarOtroParticipante.toLowerCase()) {
         // Creamos participante 2 y corroboramos que toda la informacion este bien
         case "si":
           
@@ -135,16 +135,16 @@ do {
             sexo = prompt("Ingrese su sexo: femenino o masculino"),
         
           )
-          arrayParticipantes.push(participante2);
+          participantesRegistrados.push(participante2);
 
-          while (sexoconf2 === false) {
+          while (sexoValidoParticipante2 === false) {
             if (participante2.sexo.toLowerCase() === "femenino") {
-              sexoconf2 = 1;
+              sexoValidoParticipante2 = 1;
             } else if (participante2.sexo.toLowerCase() === "masculino") {
-              sexoconf2 = 2;
+              sexoValidoParticipante2 = 2;
             } else {
               participante2.sexo = prompt("Ingrese el sexo nuevamente");
-              sexoconf2 = false;
+              sexoValidoParticipante2 = false;
             }
           }
 
@@ -155,61 +155,71 @@ do {
           } else {
             mostrarInformacionParticipante(participante2);
 
-            verificacion2 = prompt("Ingrese SI o NO:");
+            confirmacionDatosParticipante2 = prompt("Ingrese SI o NO:");
           }
 
           do {
-            if (verificacion2.toLowerCase() === "si") {
+            if (confirmacionDatosParticipante2.toLowerCase() === "si") {
               categoriaDuplas();
               alert(
-                `¡Gracias! ${participante1.nombre} ${participante1.apellido} y ${participante2.nombre} ${participante2.apellido}. Ustedes han sido inscriptos en la categoria ${categoria} ${km}km`
+                `¡Gracias! ${participante1.nombre} ${participante1.apellido} y ${participante2.nombre} ${participante2.apellido}. Ustedes han sido inscriptos en la categoria ${categoria} ${kilometrajeParticipante1}km`
               );
-              verif2 = 1;
-            } else if (verificacion2.toLowerCase() === "no") {
+              vericonfirmacionAgregarParticipante2 = 1;
+            } else if (confirmacionDatosParticipante2.toLowerCase() === "no") {
               alert("Por favor vuelva a ingresar sus datos");
               mostrarInformacionParticipante(participante2);
-              verificacion2 = prompt("Ingrese SI o NO:");
+              confirmacionDatosParticipante2 = prompt("Ingrese SI o NO:");
             }
-          } while (verif2 === 0);
+          } while (vericonfirmacionAgregarParticipante2 === 0);
 
           break;
 
         case "no":
           categoriaSimple();
           alert(
-            `¡Gracias! ${participante1.nombre} ${participante1.apellido}. Usted ha sido inscripto en la categoria ${categoria} ${km}km`
+            `¡Gracias! ${participante1.nombre} ${participante1.apellido}. Usted ha sido inscripto en la categoria ${categoria} ${kilometrajeParticipante1}km`
           );
           break;
 
         default:
           do {
-            anadirpersona = prompt(
+            confirmacionAgregarOtroParticipante = prompt(
               "Desea añadir otro participante? Escriba SI o NO"
             );
           } while (
-            anadirpersona.toLowerCase() != "si" &&
-            anadirpersona.toLowerCase() != "no"
+            confirmacionAgregarOtroParticipante.toLowerCase() != "si" &&
+            confirmacionAgregarOtroParticipante.toLowerCase() != "no"
           );
           break;
       }
-    } else if (km === 43 || km === 65) {
+    } else if (kilometrajeParticipante1 === 43 || kilometrajeParticipante1 === 65) {
       categoriaSimple();
       alert(
-        `¡Gracias! ${participante1.nombre} ${participante1.apellido}. Usted ha sido inscripto en la categoria ${categoria} ${km}km`
+        `¡Gracias! ${participante1.nombre} ${participante1.apellido}. Usted ha sido inscripto en la categoria ${categoria} ${kilometrajeParticipante1}km`
       );
     }
-  } else if (verificacion1.toLowerCase() === "no") {
+  } else if (confirmacionDatosParticipante1.toLowerCase() === "no") {
     alert("Por favor vuelva a ingresar sus datos");
+    participante1 = new Participante(
+      nombre = prompt("Ingrese su nombre"),
+      apellido = prompt("Ingrese su apellido"),
+      dni = prompt("Ingrese su DNI"),
+      edad = parseInt(prompt("Ingrese su edad (sólo números)")),
+      sexo = prompt("Ingrese su sexo: femenino o masculino"),
+      kilometros = prompt(
+        "Ingrese el kilometraje que va a hacer: 43km, 65km o 95km"
+      )
+    )
     mostrarInformacionParticipante(participante1);
-    verificacion1 = prompt("Ingrese SI o NO:");
+    confirmacionDatosParticipante1 = prompt("Ingrese SI o NO:");
   }
 } while (verif1 === 0);
 
 // Se busca la categoria en el caso de que el participante corra solo
 function categoriaSimple() {
-  switch (km) {
+  switch (kilometrajeParticipante1) {
     case 43:
-      switch (sexoconf1) {
+      switch (sexoValidoParticipante1) {
         case 1:
           if (participante1.edad <= 16) {
             categoria = "CICLO DAMAS JUVENILES";
@@ -245,7 +255,7 @@ function categoriaSimple() {
       break;
 
     case 65:
-      switch (sexoconf1) {
+      switch (sexoValidoParticipante1) {
         case 1:
           if (participante1.edad >= 16 && participante1.edad <= 17) {
             categoria = "DAMAS JUVENILES";
@@ -281,7 +291,7 @@ function categoriaSimple() {
       break;
 
     case 95:
-      switch (sexoconf1) {
+      switch (sexoValidoParticipante1) {
         case 1:
           if (participante1.edad >= 18 && participante1.edad < 29) {
             categoria = "DAMAS ELITE";
@@ -328,20 +338,20 @@ function categoriaSimple() {
 
 // Se busca la categoria en el caso de que sea dupla
 function sumaEdades() {
-  const resultado = arrayParticipantes[0].edad + arrayParticipantes[1].edad;
+  const resultado = participantesRegistrados[0].edad + participantesRegistrados[1].edad;
 
   return resultado;
 }
 
 function categoriaDuplas() {
   if (
-    arrayParticipantes[0].sexo === "femenino" &&
-    arrayParticipantes[1].sexo === "femenino"
+    participantesRegistrados[0].sexo === "femenino" &&
+    participantesRegistrados[1].sexo === "femenino"
   ) {
     sexos = 1;
   } else if (
-    arrayParticipantes[0].sexo === "masculino" &&
-    arrayParticipantes[1].sexo === "masculino"
+    participantesRegistrados[0].sexo === "masculino" &&
+    participantesRegistrados[1].sexo === "masculino"
   ) {
     sexos = 2;
   } else {

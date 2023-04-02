@@ -1,12 +1,4 @@
 // participante 1
-let nombre;
-let apellido;
-let dni;
-let edad;
-let sexo;
-let kilometros;
-let categoria;
-
 let sexoValidoParticipante1 = false;
 let kilometrajeParticipante1 = 0;
 let confirmacionDatosParticipante1;
@@ -14,11 +6,58 @@ let confirmacionAgregarParticipante1 = 0;
 let confirmacionAgregarOtroParticipante;
 const participantesRegistrados = [];
 let sexos;
+let kilometros = 0;
 
 // participante 2
 let sexoValidoParticipante2 = false;
 let confirmacionDatosParticipante2;
-let vericonfirmacionAgregarParticipante2 = 0;
+let confirmacionAgregarParticipante2 = 0;
+
+
+// EVENTOS
+window.addEventListener('DOMContentLoaded', function() {
+  const event = new Event('cargarContenidoAlDOM');
+  document.dispatchEvent(event);
+});
+
+document.addEventListener("cargarContenidoAlDOM", function () {
+  const nombre = document.querySelector("#nombre");
+  const apellido = document.querySelector("#apellido");
+  const dni = document.querySelector("#dni");
+  const edad = document.querySelector("#edad");
+  const sexo = document.querySelector("#sexo");
+  const kilometraje = document.querySelector("#kilometraje");
+
+  const titulo = document.querySelector('#titulo');
+  titulo.textContent = '¡INSCRIPCIONES 2023!';
+
+  function guardarCambiosNombre(evento) {
+    const nombree = evento.target.value;
+    localStorage.setItem("nombre", nombree);
+  }
+
+  function guardarCambiosApellido(evento) {
+    const apellidoo = evento.target.value;
+    localStorage.setItem("apellido", apellidoo);
+  }
+
+  nombre.addEventListener("input", guardarCambiosNombre);
+  apellido.addEventListener("input", guardarCambiosApellido);
+
+  let informacion = JSON.parse(localStorage.getItem("informacion"));
+
+  if (informacion) {
+    informacion.apellidoo = inputApellido.value;
+    localStorage.setItem("informacion", JSON.stringify(informacion));
+    console.log("Información actualizada en localStorage.");
+  } else {
+    console.log("Información no encontrada en localStorage.");
+  }
+
+});
+
+
+
 
 
 // Clase para crear los participantes
@@ -47,22 +86,12 @@ function mostrarInformacionParticipante(Participante) {
         Edad: ${Participante.edad}
         Sexo: ${Participante.sexo}
         Kilometraje: ${kilometrajeParticipante1}km`
-  );
-
+  )
 }
 
 
 // Creamos participante 1
-const participante1 = new Participante(
-  nombre = prompt("Ingrese su nombre"),
-  apellido = prompt("Ingrese su apellido"),
-  dni = prompt("Ingrese su DNI"),
-  edad = parseInt(prompt("Ingrese su edad (sólo números)")),
-  sexo = prompt("Ingrese su sexo: femenino o masculino"),
-  kilometros = prompt(
-    "Ingrese el kilometraje que va a hacer: 43km, 65km o 95km"
-  )
-)
+const participante1 = new Participante(nombre, apellido, dni, edad, sexo, kilometros);
 participantesRegistrados.push(participante1);
 
 // Corroboramos que toda la informacion este bien
@@ -122,7 +151,6 @@ do {
     if (kilometrajeParticipante1 === 95) {
       // Añadimos otro participante en caso de que así lo desee el usuario
       confirmacionAgregarOtroParticipante = prompt("¿Desea correr en dupla? Escriba SI o NO");
-
       switch (confirmacionAgregarOtroParticipante.toLowerCase()) {
         // Creamos participante 2 y corroboramos que toda la informacion este bien
         case "si":
@@ -132,7 +160,7 @@ do {
             apellido = prompt("Ingrese su apellido"),
             dni = prompt("Ingrese su DNI"),
             edad = parseInt(prompt("Ingrese su edad (sólo números)")),
-            sexo = prompt("Ingrese su sexo: femenino o masculino"),
+            sexo = prompt("Ingrese su sexo: femenino o masculino"), 
         
           )
           participantesRegistrados.push(participante2);
@@ -151,7 +179,7 @@ do {
           if (participante2.edad < 10 || participante2.edad > 85) {
             alert(
               "Usted no puede participar porque no cumple con la edad requerida."
-            );
+            ); 
           } else {
             mostrarInformacionParticipante(participante2);
 
@@ -161,12 +189,12 @@ do {
           do {
             if (confirmacionDatosParticipante2.toLowerCase() === "si") {
               categoriaDuplas();
-              alert(
+            alert(
                 `¡Gracias! ${participante1.nombre} ${participante1.apellido} y ${participante2.nombre} ${participante2.apellido}. Ustedes han sido inscriptos en la categoria ${categoria} ${kilometrajeParticipante1}km`
-              );
+              ); 
               vericonfirmacionAgregarParticipante2 = 1;
             } else if (confirmacionDatosParticipante2.toLowerCase() === "no") {
-              alert("Por favor vuelva a ingresar sus datos");
+             alert("Por favor vuelva a ingresar sus datos");
               mostrarInformacionParticipante(participante2);
               confirmacionDatosParticipante2 = prompt("Ingrese SI o NO:");
             }
@@ -178,14 +206,14 @@ do {
           categoriaSimple();
           alert(
             `¡Gracias! ${participante1.nombre} ${participante1.apellido}. Usted ha sido inscripto en la categoria ${categoria} ${kilometrajeParticipante1}km`
-          );
+          );  
           break;
 
         default:
           do {
             confirmacionAgregarOtroParticipante = prompt(
               "Desea añadir otro participante? Escriba SI o NO"
-            );
+            );  
           } while (
             confirmacionAgregarOtroParticipante.toLowerCase() != "si" &&
             confirmacionAgregarOtroParticipante.toLowerCase() != "no"
@@ -194,7 +222,7 @@ do {
       }
     } else if (kilometrajeParticipante1 === 43 || kilometrajeParticipante1 === 65) {
       categoriaSimple();
-      alert(
+       alert(
         `¡Gracias! ${participante1.nombre} ${participante1.apellido}. Usted ha sido inscripto en la categoria ${categoria} ${kilometrajeParticipante1}km`
       );
     }
@@ -208,12 +236,12 @@ do {
       sexo = prompt("Ingrese su sexo: femenino o masculino"),
       kilometros = prompt(
         "Ingrese el kilometraje que va a hacer: 43km, 65km o 95km"
-      )
+      ) 
     )
     mostrarInformacionParticipante(participante1);
-    confirmacionDatosParticipante1 = prompt("Ingrese SI o NO:");
+    confirmacionDatosParticipante1 = prompt("Ingrese SI o NO:");  
   }
-} while (verif1 === 0);
+} while (confirmacionAgregarParticipante1 === 0);
 
 // Se busca la categoria en el caso de que el participante corra solo
 function categoriaSimple() {
@@ -384,3 +412,12 @@ function categoriaDuplas() {
       break;
   }
 }
+ 
+
+
+
+
+
+
+
+
